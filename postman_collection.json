@@ -1,0 +1,207 @@
+{
+	"info": {
+		"_postman_id": "fundsroom-erp-crm-collection",
+		"name": "Fundsroom Mini ERP CRM APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login (Admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"admin@fundsroom.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Get Current User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/me",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "auth", "me"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Customers (CRM)",
+			"item": [
+				{
+					"name": "List Customers (Paginated & Filtered)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/customers?page=1&limit=10&search=&status=&customerType=",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "customers"],
+							"query": [
+								{ "key": "page", "value": "1" },
+								{ "key": "limit", "value": "10" },
+								{ "key": "search", "value": "" },
+								{ "key": "status", "value": "" },
+								{ "key": "customerType", "value": "" }
+							]
+						}
+					}
+				},
+				{
+					"name": "Create Customer",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Apex Distributors\",\n  \"mobile\": \"9876543210\",\n  \"email\": \"contact@apex.com\",\n  \"businessName\": \"Apex Corp\",\n  \"gstNumber\": \"27AAAAA0000A1Z5\",\n  \"customerType\": \"DISTRIBUTOR\",\n  \"address\": \"Industrial Area Phase 1, Mumbai\",\n  \"status\": \"LEAD\",\n  \"notes\": \"Interested in bulk orders\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/customers",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "customers"]
+						}
+					}
+				},
+				{
+					"name": "Add Follow-up Note",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"note\": \"Discussed wholesale pricing terms. Followup next week.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/customers/:id/follow-ups",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "customers", ":id", "follow-ups"],
+							"variable": [{ "key": "id", "value": "CUSTOMER_ID" }]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Products & Inventory",
+			"item": [
+				{
+					"name": "List Products",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/products?page=1&limit=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "products"]
+						}
+					}
+				},
+				{
+					"name": "Add Stock Movement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"IN\",\n  \"quantity\": 50,\n  \"reason\": \"Vendor Delivery Restock\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/products/:id/stock-movements",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "products", ":id", "stock-movements"],
+							"variable": [{ "key": "id", "value": "PRODUCT_ID" }]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Sales Challans",
+			"item": [
+				{
+					"name": "List Challans",
+					"request": {
+						"method": "GET",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/challans?page=1&limit=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "challans"]
+						}
+					}
+				},
+				{
+					"name": "Create Delivery Challan",
+					"request": {
+						"method": "POST",
+						"header": [
+							{ "key": "Content-Type", "value": "application/json" },
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customerId\": \"CUSTOMER_ID\",\n  \"status\": \"CONFIRMED\",\n  \"items\": [\n    {\n      \"productId\": \"PRODUCT_ID\",\n      \"quantity\": 5\n    }\n  ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/challans",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "challans"]
+						}
+					}
+				},
+				{
+					"name": "Confirm Challan",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{ "key": "Authorization", "value": "Bearer {{token}}" }
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/challans/:id/confirm",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "challans", ":id", "confirm"],
+							"variable": [{ "key": "id", "value": "CHALLAN_ID" }]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{ "key": "baseUrl", "value": "http://localhost:3001" },
+		{ "key": "token", "value": "YOUR_JWT_TOKEN_HERE" }
+	]
+}
