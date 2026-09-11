@@ -1,5 +1,7 @@
 # FundsRoom Mini ERP + CRM Operations Portal
 
+**GitHub Repository**: [https://github.com/bhargavreddy-star/FundsRoom-Mini-ERP-CRM](https://github.com/bhargavreddy-star/FundsRoom-Mini-ERP-CRM)
+
 A full-stack Mini ERP & CRM system built for wholesale and distribution businesses. Enables internal teams (Sales, Warehouse, Accounts, Admin) to manage customer leads, track product inventory with real-time stock movements, generate delivery challans with strict stock protection, and monitor operational performance.
 
 ---
